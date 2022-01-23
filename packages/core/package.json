@@ -1,0 +1,19 @@
+{
+  "name": "@hard-to-build/cli-core",
+  "version": "0.1.0",
+  "description": "hard to build cli core",
+  "author": "YunLong Zhou <yunlong.zhou@thoughtworks.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/core.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}
