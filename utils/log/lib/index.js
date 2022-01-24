@@ -1,9 +1,10 @@
 'use strict';
 
-module.exports = index;
-
 const log = require('npmlog')
 
-function index() {
-    log.info('cli', 'test-log')
-}
+log.level = process.env.LOG_LEVEL ? process.env.LOG_LEVEL : 'info'
+
+log.heading = '👉'
+log.addLevel('success', { fg: 'green' })
+
+module.exports = log;

@@ -15,6 +15,5 @@ function core() {
 }
 
 function checkVersion() {
-    console.log(pkg.version)
-    log()
+    log.notice('cli', pkg.version)
 }
