@@ -8,6 +8,8 @@ module.exports = core;
 // any file -> .js
 const semver = require('semver')
 const colors = require('colors/safe')
+const userHome = require('user-home')
+const pathExists = require('path-exists').sync
 const pkg = require('../package.json')
 const constants = require('./const')
 const log = require('@hard-to-build/cli-log')
@@ -17,8 +19,15 @@ function core() {
         checkVersion()
         checkNodeVersion()
         checkRoot()
+        checkUserHome()
     } catch (e) {
         log.error(e.message)
+    }
+}
+
+function checkUserHome() {
+    if (!userHome || !pathExists(userHome)) {
+        throw new Error(colors.red(`user home is not exists`))
     }
 }
 
