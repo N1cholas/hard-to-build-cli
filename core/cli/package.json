@@ -24,7 +24,10 @@
   },
   "gitHead": "3b1336311d3b84236d1cbfca93dc38282dce410c",
   "dependencies": {
+    "@hard-to-build/cli-log": "file:../../utils/log",
+    "colors": "^1.4.0",
     "import-local": "^3.1.0",
-    "@hard-to-build/cli-log": "file:../../utils/log"
+    "root-check": "^1.0.0",
+    "semver": "^7.3.5"
   }
 }
