@@ -14,15 +14,28 @@ const pkg = require('../package.json')
 const constants = require('./const')
 const log = require('@hard-to-build/cli-log')
 
+const args = require('minimist')(process.argv.slice(2))
+
 function core() {
     try {
         checkVersion()
         checkNodeVersion()
         checkRoot()
         checkUserHome()
+        checkArgs()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+function checkArgs() {
+    if (args.debug) {
+        process.env.LOG_LEVEL = 'verbose'
+    } else {
+        process.env.LOG_LEVEL = 'info'
+    }
+    
+    log.level = process.env.LOG_LEVEL
 }
 
 function checkUserHome() {
