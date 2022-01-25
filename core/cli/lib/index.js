@@ -6,6 +6,7 @@ module.exports = core;
 // .js file output -> module.exports|exports
 // .json file -> JSON.parse
 // any file -> .js
+const path = require('path')
 const semver = require('semver')
 const colors = require('colors/safe')
 const userHome = require('user-home')
@@ -23,9 +24,24 @@ function core() {
         checkRoot()
         checkUserHome()
         checkArgs()
+        checkEnv()
     } catch (e) {
         log.error(e.message)
     }
+}
+
+function checkEnv() {
+    const dotenv = require('dotenv')
+    const dotenvPath = path.resolve(userHome, '.env')
+    const config = dotenv.config({path: dotenvPath})
+    
+    if (pathExists(dotenvPath) && config) {
+        process.env.CLI_HOME = config.parsed.CLI_HOME
+    } else {
+        process.env.CLI_HOME = path.join(userHome, constants.DEFAULT_CLI_HOME)
+    }
+    
+    log.verbose('env', process.env.CLI_HOME)
 }
 
 function checkArgs() {
@@ -42,6 +58,7 @@ function checkUserHome() {
     if (!userHome || !pathExists(userHome)) {
         throw new Error(colors.red(`user home is not exists`))
     }
+    log.verbose('userHome', userHome)
 }
 
 function checkRoot() {
@@ -52,10 +69,10 @@ function checkNodeVersion() {
     const currentVersion = process.version
     const lowestVersion = constants.LOWEST_NODE_VERSION
     if (!semver.gte(currentVersion, lowestVersion)) {
-        throw new Error(colors.red(`long-cli need at least ${lowestVersion} node version`))
+        throw new Error(colors.red(`my-cli need at least ${lowestVersion} node version`))
     }
 }
 
 function checkVersion() {
-    log.notice('cli', pkg.version)
+    log.info('my-cli', pkg.version)
 }

@@ -17,7 +17,7 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "bin": {
-    "long-cli": "bin/index.js"
+    "my-cli": "bin/index.js"
   },
   "publishConfig": {
     "access": "public"
@@ -26,6 +26,7 @@
   "dependencies": {
     "@hard-to-build/cli-log": "file:../../utils/log",
     "colors": "^1.4.0",
+    "dotenv": "^14.3.0",
     "import-local": "^3.1.0",
     "minimist": "^1.2.5",
     "path-exists": "^4.0.0",
