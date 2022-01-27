@@ -14,10 +14,11 @@ const pathExists = require('path-exists').sync
 const pkg = require('../package.json')
 const constants = require('./const')
 const log = require('@hard-to-build/cli-log')
+const { getPkgVersions, getSemverVersions } = require('get-pkg-info')
 
 const args = require('minimist')(process.argv.slice(2))
 
-function core() {
+async function core() {
     try {
         checkVersion()
         checkNodeVersion()
@@ -25,8 +26,18 @@ function core() {
         checkUserHome()
         checkArgs()
         checkEnv()
+        await checkUpdate()
     } catch (e) {
         log.error(e.message)
+    }
+}
+
+async function checkUpdate() {
+    const latestVersion = await getSemverVersions(pkg.name, pkg.version)
+    
+    if (latestVersion && semver.gt(latestVersion, pkg.version)) {
+        log.warn(colors.yellow(`please install latest version ${latestVersion}, current version is ${pkg.version}.
+        $ npm install ${pkg.name}`))
     }
 }
 
