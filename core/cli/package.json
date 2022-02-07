@@ -26,6 +26,7 @@
   "dependencies": {
     "@hard-to-build/cli-log": "file:../../utils/log",
     "@hard-to-build/cli-init": "file:../../command/init",
+    "@hard-to-build/cli-exec": "file:../exec",
     "colors": "^1.4.0",
     "commander": "^9.0.0",
     "dotenv": "^14.3.0",

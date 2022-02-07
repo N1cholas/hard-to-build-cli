@@ -16,6 +16,7 @@ const constants = require('./const')
 const log = require('@hard-to-build/cli-log')
 const commander = require('commander')
 const init = require('@hard-to-build/cli-init')
+const exec = require('@hard-to-build/cli-exec')
 const { getPkgVersions, getSemverVersions } = require('get-pkg-info')
 
 const args = require('minimist')(process.argv.slice(2))
@@ -51,7 +52,7 @@ function registerCommand () {
     program
         .command('init [projectName]')
         .option('-f, --force', 'force init')
-        .action(init)
+        .action(exec)
     
     program.on('option:debug', function () {
         log.level = 'verbose'
