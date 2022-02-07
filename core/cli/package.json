@@ -25,9 +25,10 @@
   "gitHead": "3b1336311d3b84236d1cbfca93dc38282dce410c",
   "dependencies": {
     "@hard-to-build/cli-log": "file:../../utils/log",
-    "get-pkg-info": "file:../../utils/get-pkg-info",
     "colors": "^1.4.0",
+    "commander": "^9.0.0",
     "dotenv": "^14.3.0",
+    "get-pkg-info": "file:../../utils/get-pkg-info",
     "import-local": "^3.1.0",
     "minimist": "^1.2.5",
     "path-exists": "^4.0.0",

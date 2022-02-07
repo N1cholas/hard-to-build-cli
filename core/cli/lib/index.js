@@ -14,21 +14,49 @@ const pathExists = require('path-exists').sync
 const pkg = require('../package.json')
 const constants = require('./const')
 const log = require('@hard-to-build/cli-log')
+const commander = require('commander')
 const { getPkgVersions, getSemverVersions } = require('get-pkg-info')
 
 const args = require('minimist')(process.argv.slice(2))
 
+const program = new commander.Command()
+
 async function core() {
     try {
-        checkVersion()
+        // checkVersion()
         checkNodeVersion()
         checkRoot()
         checkUserHome()
-        checkArgs()
+        // checkArgs()
         checkEnv()
-        await checkUpdate()
+        // await checkUpdate()
+        registerCommand()
     } catch (e) {
         log.error(e.message)
+    }
+}
+
+function registerCommand () {
+    program
+        .name(Object.keys(pkg.bin)[0])
+        .usage('<command> [options]')
+        .version(pkg.version)
+        .option('-d, --debug', 'debug mode', false)
+    
+    program.on('option:debug', function () {
+        log.level = 'verbose'
+    })
+    
+    program.on('command:*', function (obj) {
+        const availableCommands = program.commands.map(cmd => cmd.name())
+        log.warn('warning: unknown command: ', obj[0])
+        log.info('available commands command: ', availableCommands.join(', '))
+    })
+    
+    program.parse(process.argv)
+    
+    if (program.args && program.args.length < 1) {
+        program.outputHelp()
     }
 }
 
