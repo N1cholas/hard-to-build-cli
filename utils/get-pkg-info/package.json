@@ -1,5 +1,5 @@
 {
-  "name": "get-pkg-info",
+  "name": "@hard-to-build/get-pkg-info",
   "version": "0.0.4",
   "description": "> TODO: description",
   "author": "YunLong Zhou <yunlong.zhou@thoughtworks.com>",

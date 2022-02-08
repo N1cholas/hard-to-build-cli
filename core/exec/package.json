@@ -28,6 +28,6 @@
   },
   "dependencies": {
     "@hard-to-build/cli-log": "file:../../utils/log",
-    "@hard-to-build/cli-package": "file:../../model/package"
+    "@hard-to-build/cli-package": "file:../../models/package"
   }
 }
