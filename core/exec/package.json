@@ -1,6 +1,6 @@
 {
   "name": "@hard-to-build/cli-exec",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "> TODO: description",
   "author": "YunLong Zhou <yunlong.zhou@thoughtworks.com>",
   "homepage": "https://github.com/N1cholas/hard-to-build-cli#readme",
@@ -27,7 +27,7 @@
     "url": "https://github.com/N1cholas/hard-to-build-cli/issues"
   },
   "dependencies": {
-    "@hard-to-build/cli-package": "file:../../model/package",
-    "@hard-to-build/cli-log": "file:../../utils/log"
+    "@hard-to-build/cli-log": "file:../../utils/log",
+    "@hard-to-build/cli-package": "file:../../model/package"
   }
 }
