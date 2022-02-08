@@ -2,6 +2,7 @@
 
 const pkgDir = require('pkg-dir').sync
 const path = require('path')
+const { formatPath } = require('@hard-to-build/cli-utils')
 
 class Package {
     constructor(options) {
@@ -19,8 +20,9 @@ class Package {
         const dir = pkgDir(this.targetPath)
         if (dir) {
             const pkgFile = require(path.resolve(dir, 'package.json'))
+            
             if (pkgFile && pkgFile.main) {
-                return path.resolve(dir, pkgFile.main)
+                return formatPath(path.resolve(dir, pkgFile.main))
             }
         }
         
