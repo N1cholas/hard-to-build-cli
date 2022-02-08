@@ -24,9 +24,9 @@
   },
   "gitHead": "3b1336311d3b84236d1cbfca93dc38282dce410c",
   "dependencies": {
-    "@hard-to-build/cli-log": "file:../../utils/log",
-    "@hard-to-build/cli-init": "file:../../command/init",
     "@hard-to-build/cli-exec": "file:../exec",
+    "@hard-to-build/cli-init": "file:../../command/init",
+    "@hard-to-build/cli-log": "file:../../utils/log",
     "colors": "^1.4.0",
     "commander": "^9.0.0",
     "dotenv": "^14.3.0",

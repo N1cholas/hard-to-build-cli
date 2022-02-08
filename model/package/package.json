@@ -25,5 +25,8 @@
   },
   "bugs": {
     "url": "https://github.com/N1cholas/hard-to-build-cli/issues"
+  },
+  "dependencies": {
+    "pkg-dir": "^5.0.0"
   }
 }

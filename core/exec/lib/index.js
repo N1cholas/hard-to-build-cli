@@ -6,7 +6,7 @@ function exec() {
     const targetPath = process.env.CLI_TARGET_PATH
     const homePath = process.env.CLI_HOME
     const command = arguments[arguments.length - 1]
-    
+
     const pkgMapping = {
         'init': '@hard-to-build/cli-init'
     }
@@ -18,7 +18,7 @@ function exec() {
         packageVersion: 'latest'
     })
     
-    console.log(pkg)
+    console.log(pkg.getEntry())
 }
 
 module.exports = exec;
