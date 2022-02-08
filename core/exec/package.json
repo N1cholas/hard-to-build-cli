@@ -27,6 +27,7 @@
     "url": "https://github.com/N1cholas/hard-to-build-cli/issues"
   },
   "dependencies": {
-    "@hard-to-build/cli-package": "file:../../model/package"
+    "@hard-to-build/cli-package": "file:../../model/package",
+    "@hard-to-build/cli-log": "file:../../utils/log"
   }
 }

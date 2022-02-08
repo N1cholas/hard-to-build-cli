@@ -22,5 +22,8 @@
   },
   "bugs": {
     "url": "https://github.com/N1cholas/hard-to-build-cli/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

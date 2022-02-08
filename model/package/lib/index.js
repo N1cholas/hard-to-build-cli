@@ -3,6 +3,7 @@
 const pkgDir = require('pkg-dir').sync
 const path = require('path')
 const { formatPath } = require('@hard-to-build/cli-utils')
+const npmInstall = require('npminstall')
 
 class Package {
     constructor(options) {
@@ -13,7 +14,7 @@ class Package {
         this.name = options.packageName
         this.version = options.packageVersion
         this.targetPath = options.targetPath
-        this.homePath = options.homePath
+        this.storeDir = options.storeDir
     }
     
     getEntry() {
@@ -27,6 +28,16 @@ class Package {
         }
         
         return null
+    }
+    
+    install () {
+        npmInstall({
+            root: this.targetPath,
+            pkgs: [{
+                name: this.name,
+                version: this.version
+            }]
+        })
     }
 }
 

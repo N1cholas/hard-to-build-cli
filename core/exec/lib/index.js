@@ -1,24 +1,35 @@
 'use strict';
 
 const Package = require('@hard-to-build/cli-package')
+const path = require('path')
+const log = require('@hard-to-build/cli-log')
+
+const pkgMapping = {
+    'init': '@hard-to-build/cli-init'
+}
+const CACHE_DIR = 'dependencies/'
 
 function exec() {
-    const targetPath = process.env.CLI_TARGET_PATH
+    let targetPath = process.env.CLI_TARGET_PATH
+    let storeDir
     const homePath = process.env.CLI_HOME
     const command = arguments[arguments.length - 1]
-
-    const pkgMapping = {
-        'init': '@hard-to-build/cli-init'
+    
+    if (!targetPath) {
+        targetPath = path.resolve(homePath, CACHE_DIR)
+        storeDir = path.resolve(targetPath, 'node_modules')
     }
 
     const pkg = new Package({
         targetPath,
-        homePath,
+        storeDir,
         packageName: pkgMapping[command.name()],
         packageVersion: 'latest'
     })
     
-    console.log(pkg.getEntry())
+    log.verbose('targetPath', targetPath)
+    log.verbose('storeDir', storeDir)
+    log.verbose('single pkg entry', pkg.getEntry())
 }
 
 module.exports = exec;
