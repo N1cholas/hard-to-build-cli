@@ -14,7 +14,6 @@ class Package {
         this.name = options.packageName
         this.version = options.packageVersion
         this.targetPath = options.targetPath
-        this.storeDir = options.storeDir
     }
     
     getEntry() {
@@ -30,14 +29,18 @@ class Package {
         return null
     }
     
-    install () {
-        npmInstall({
+    async install () {
+        return await npmInstall({
             root: this.targetPath,
             pkgs: [{
                 name: this.name,
                 version: this.version
             }]
         })
+    }
+    
+    exist () {
+    
     }
 }
 

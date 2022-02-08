@@ -9,27 +9,34 @@ const pkgMapping = {
 }
 const CACHE_DIR = 'dependencies/'
 
-function exec() {
+async function exec() {
     let targetPath = process.env.CLI_TARGET_PATH
-    let storeDir
     const homePath = process.env.CLI_HOME
     const command = arguments[arguments.length - 1]
     
     if (!targetPath) {
         targetPath = path.resolve(homePath, CACHE_DIR)
-        storeDir = path.resolve(targetPath, 'node_modules')
     }
 
     const pkg = new Package({
         targetPath,
-        storeDir,
         packageName: pkgMapping[command.name()],
         packageVersion: 'latest'
     })
     
     log.verbose('targetPath', targetPath)
-    log.verbose('storeDir', storeDir)
-    log.verbose('single pkg entry', pkg.getEntry())
+    log.verbose('storeDir', path.resolve(targetPath, 'node_modules'))
+
+    if (pkg.exist()) {
+        // update
+    } else {
+        await pkg.install()
+    }
+    
+    const entryFile = pkg.getEntry()
+    log.verbose('single pkg entry', entryFile)
+    
+    require(entryFile).apply(null, arguments)
 }
 
 module.exports = exec;
