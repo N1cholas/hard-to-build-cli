@@ -17,16 +17,23 @@ class Package {
     }
     
     getEntry() {
-        const dir = pkgDir(this.targetPath)
-        if (dir) {
-            const pkgFile = require(path.resolve(dir, 'package.json'))
-            
-            if (pkgFile && pkgFile.main) {
-                return formatPath(path.resolve(dir, pkgFile.main))
+        function _getEntry(targetPath) {
+            console.log(targetPath)
+            const dir = pkgDir(targetPath)
+    
+            if (dir) {
+                const pkgFile = require(path.resolve(dir, 'package.json'))
+        
+                if (pkgFile && pkgFile.main) {
+                    return formatPath(path.resolve(dir, pkgFile.main))
+                }
             }
+    
+            return null
         }
         
-        return null
+        return _getEntry(this.targetPath) ||
+            _getEntry(path.resolve(this.targetPath, `node_modules/${this.name}`))
     }
     
     async install () {

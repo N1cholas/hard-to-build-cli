@@ -24,8 +24,10 @@ async function exec() {
         packageVersion: 'latest'
     })
     
+    log.verbose('homePath  ', homePath)
+    log.verbose('cachePath ', path.resolve(homePath, CACHE_DIR))
     log.verbose('targetPath', targetPath)
-    log.verbose('storeDir', path.resolve(targetPath, 'node_modules'))
+    log.verbose('storeDir  ', path.resolve(targetPath, 'node_modules'))
 
     if (pkg.exist()) {
         // update
@@ -33,10 +35,14 @@ async function exec() {
         await pkg.install()
     }
     
-    const entryFile = pkg.getEntry()
-    log.verbose('single pkg entry', entryFile)
+    const entryFilePath = pkg.getEntry()
+    log.verbose('single pkg entry', entryFilePath)
     
-    require(entryFile).apply(null, arguments)
+    const entryFn = require(entryFilePath)
+   
+    if (entryFn) {
+        entryFn.apply(null, arguments)
+    }
 }
 
 module.exports = exec;
