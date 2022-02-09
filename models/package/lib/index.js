@@ -18,6 +18,17 @@ class Package {
         this.targetPath = options.targetPath
     }
     
+    get storePath () {
+        return path.resolve(this.targetPath, 'node_modules')
+    }
+    
+    get cacheFilePathPrefix () {
+        return path.resolve(
+            this.storePath,
+            `_${this.name.replace('/', '_')}@${this.version}@${this.name}`
+        )
+    }
+    
     getEntry() {
         function _getEntry(targetPath) {
             log.verbose('target path:', targetPath)
@@ -55,6 +66,10 @@ class Package {
     
     exist (path) {
         return path ? pathExist(path) : pathExist(this.targetPath)
+    }
+    
+    update () {
+        console.log(this.cacheFilePathPrefix)
     }
 }
 

@@ -13,6 +13,7 @@ async function exec() {
     const targetPath = process.env.CLI_TARGET_PATH ?
         process.env.CLI_TARGET_PATH :
         path.resolve(homePath, CACHE_DIR)
+    
     const commandName = arguments[arguments.length - 1].name()
     
     const pkg = new Package({
@@ -22,8 +23,7 @@ async function exec() {
     })
 
     if (pkg.exist()) {
-        // update
-        console.log('update...')
+        pkg.update()
     } else {
         await pkg.install()
     }
