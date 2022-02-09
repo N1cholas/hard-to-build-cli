@@ -4,6 +4,8 @@ const pkgDir = require('pkg-dir').sync
 const path = require('path')
 const { formatPath } = require('@hard-to-build/cli-utils')
 const npmInstall = require('npminstall')
+const pathExist = require('path-exists').sync
+const log = require('@hard-to-build/cli-log')
 
 class Package {
     constructor(options) {
@@ -18,7 +20,7 @@ class Package {
     
     getEntry() {
         function _getEntry(targetPath) {
-            console.log(targetPath)
+            log.verbose('target path:', targetPath)
             const dir = pkgDir(targetPath)
     
             if (dir) {
@@ -32,8 +34,13 @@ class Package {
             return null
         }
         
-        return _getEntry(this.targetPath) ||
+        const entryPath = pkgDir(this.targetPath) ?
+            _getEntry(this.targetPath) :
             _getEntry(path.resolve(this.targetPath, `node_modules/${this.name}`))
+        
+        log.verbose('entry path:', entryPath)
+        
+        return entryPath
     }
     
     async install () {
@@ -46,8 +53,8 @@ class Package {
         })
     }
     
-    exist () {
-    
+    exist (path) {
+        return path ? pathExist(path) : pathExist(this.targetPath)
     }
 }
 
