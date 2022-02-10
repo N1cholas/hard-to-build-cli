@@ -23,7 +23,7 @@ async function exec() {
     })
 
     if (pkg.exist()) {
-        pkg.update()
+        await pkg.update()
     } else {
         await pkg.install()
     }

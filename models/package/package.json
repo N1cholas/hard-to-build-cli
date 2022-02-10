@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@hard-to-build/cli-utils": "file:../../utils/utils",
+    "@hard-to-build/get-pkg-info": "file:../../utils/get-pkg-info",
     "@hard-to-build/cli-log": "file:../../utils/log",
     "npminstall": "^5.4.0",
     "pkg-dir": "^5.0.0",

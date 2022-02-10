@@ -44,8 +44,15 @@ async function getSemverVersions(name, currentVersion) {
     return []
 }
 
+async function getLatestVersion(name) {
+    const versions = await getPkgVersions(name)
+    
+    return versions.sort((a, b) => semver.gt(a, b))[0]
+}
+
 module.exports = {
     getPkgInfo,
     getPkgVersions,
-    getSemverVersions
+    getSemverVersions,
+    getLatestVersion
 }

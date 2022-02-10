@@ -97,7 +97,7 @@ function checkEnv() {
         process.env.CLI_HOME = path.join(userHome, constants.DEFAULT_CLI_HOME)
     }
     
-    log.verbose('env', process.env.CLI_HOME)
+    log.verbose('env\n', process.env.CLI_HOME)
 }
 
 function checkUserHome() {
@@ -105,7 +105,7 @@ function checkUserHome() {
         throw new Error(colors.red(`user home is not exists`))
     }
     
-    log.verbose('userHome', userHome)
+    log.verbose('userHome\n', userHome)
 }
 
 function checkRoot() {

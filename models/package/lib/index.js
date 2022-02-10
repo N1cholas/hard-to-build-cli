@@ -6,6 +6,7 @@ const { formatPath } = require('@hard-to-build/cli-utils')
 const npmInstall = require('npminstall')
 const pathExist = require('path-exists').sync
 const log = require('@hard-to-build/cli-log')
+const { getLatestVersion } = require('@hard-to-build/get-pkg-info')
 
 class Package {
     constructor(options) {
@@ -14,24 +15,29 @@ class Package {
         }
         
         this.name = options.packageName
-        this.version = options.packageVersion
+        this.currentVersion = options.packageVersion
         this.targetPath = options.targetPath
+    }
+    
+    async prepare () {
+        this.latestVersion = await getLatestVersion(this.name)
+        log.verbose(`${this.name} latest version`, this.latestVersion)
     }
     
     get storePath () {
         return path.resolve(this.targetPath, 'node_modules')
     }
     
-    get cacheFilePathPrefix () {
+    get cacheFilePath () {
         return path.resolve(
             this.storePath,
-            `_${this.name.replace('/', '_')}@${this.version}@${this.name}`
+            `_${this.name.replace('/', '_')}@${this.latestVersion}@${this.name}`
         )
     }
     
     getEntry() {
         function _getEntry(targetPath) {
-            log.verbose('target path:', targetPath)
+            log.verbose('target path:\n', targetPath)
             const dir = pkgDir(targetPath)
     
             if (dir) {
@@ -49,7 +55,7 @@ class Package {
             _getEntry(this.targetPath) :
             _getEntry(path.resolve(this.targetPath, `node_modules/${this.name}`))
         
-        log.verbose('entry path:', entryPath)
+        log.verbose('entry path:\n', entryPath)
         
         return entryPath
     }
@@ -59,7 +65,7 @@ class Package {
             root: this.targetPath,
             pkgs: [{
                 name: this.name,
-                version: this.version
+                version: this.currentVersion
             }]
         })
     }
@@ -68,8 +74,19 @@ class Package {
         return path ? pathExist(path) : pathExist(this.targetPath)
     }
     
-    update () {
-        console.log(this.cacheFilePathPrefix)
+    async update () {
+        await this.prepare()
+        log.verbose('cache file path \n', this.cacheFilePath)
+        if (!pathExist(this.cacheFilePath)) {
+            return await npmInstall({
+                root: this.targetPath,
+                pkgs: [{
+                    name: this.name,
+                    version: this.latestVersion
+                }]
+            })
+        }
+        log.verbose(`${this.name}`, 'already up-to-date')
     }
 }
 
