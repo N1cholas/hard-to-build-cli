@@ -1,6 +1,6 @@
 {
   "name": "@hard-to-build/cli-package",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "> TODO: description",
   "author": "YunLong Zhou <yunlong.zhou@thoughtworks.com>",
   "homepage": "https://github.com/N1cholas/hard-to-build-cli#readme",
@@ -27,11 +27,11 @@
     "url": "https://github.com/N1cholas/hard-to-build-cli/issues"
   },
   "dependencies": {
+    "@hard-to-build/cli-log": "file:../../utils/log",
     "@hard-to-build/cli-utils": "file:../../utils/utils",
     "@hard-to-build/get-pkg-info": "file:../../utils/get-pkg-info",
-    "@hard-to-build/cli-log": "file:../../utils/log",
     "npminstall": "^5.4.0",
-    "pkg-dir": "^5.0.0",
-    "path-exists": "^4.0.0"
+    "path-exists": "^4.0.0",
+    "pkg-dir": "^5.0.0"
   }
 }
